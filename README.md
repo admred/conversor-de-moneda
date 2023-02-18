@@ -1,6 +1,7 @@
 # Challenge ONE Back End - Java
 
-### Converdor de monedas y temperaturas
+### Converdor de unidades de monedas y temperaturas con Java 17 y Swing 
 
-- [Estado en Trello](https://trello.com/b/QKeOWkDU/conversor-de-monedas)
-- [Codigo Fuente](https://github.com/admred/conversor-de-moneda)
+- [Estado del proyecto](https://trello.com/b/QKeOWkDU/conversor-de-monedas)
+- [Codigo fuente](https://github.com/admred/conversor-de-moneda)
+- [Mas información](https://www.aluracursos.com/challenges/oracle-one-back-end/conversordemoneda/sprint01)
