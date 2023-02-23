@@ -1,5 +1,8 @@
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+
 
 class Main  extends JFrame {
     
@@ -10,10 +13,12 @@ class Main  extends JFrame {
         }});
     }
 
-    public Main(RootPane rootPane) {
+    public Main(JPanel rootPane) {
         setTitle("Convertidor de monedas");
-        setSize(600,400);
+        setSize(400,300);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        rootPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         getContentPane().add(rootPane);
         setLocationRelativeTo(null);
     }
