@@ -1,3 +1,5 @@
+import java.util.stream.Collectors;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
@@ -11,27 +13,17 @@ import java.util.Map;
 import java.util.HashMap;
 import javax.swing.JButton;
 
-class Moneda{
-    String nombre;
-    double valor;
-
-    public Moneda(String a,double b){
-        nombre=a;
-        valor=b;
-    }
-}
-
-public class ConvertirMoneda extends JPanel {
+class ConvertirMoneda extends JPanel {
 
 
-    private List<Moneda> monedasUS=Arrays.asList(
-        new Moneda("Peso Argentino",193.988875),
-        new Moneda("Euro",0.939472),
-        new Moneda("Libra Esternila",0.826442),
-        new Moneda("Yen Japonés",134.614163),
-        new Moneda("Won sul-coreano",1303.277058)
-    );
-    private String[] monedas={
+    private List<Moneda> monedas=new ArrayList<Moneda>(){{
+        add(new Moneda("Peso Argentino",193.988875));
+        add(new Moneda("Euro",0.939472));
+        add(new Moneda("Libra Esternila",0.826442));
+        add(new Moneda("Yen Japonés",134.614163));
+        add(new Moneda("Won sul-coreano",1303.277058));
+    }};
+    private String[] monedasN={
         "Peso Argentino",
         "Euro",
         "Libra Esternila",
@@ -43,7 +35,8 @@ public class ConvertirMoneda extends JPanel {
         super();
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         add(new JLabel("Convertir a pesos"));
-        add(new JComboBox<String>(monedas));
+
+        add(new JComboBox<String>(monedas.stream().map(Moneda::getNombre).toArray(String[]::new)));
         add(new JTextField());
     }
 
