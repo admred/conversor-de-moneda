@@ -33,8 +33,9 @@ class ConvertirMoneda extends JPanel {
 
     public ConvertirMoneda() {
         super();
-        setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-        add(new JLabel("Convertir a pesos"));
+        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+        add(new JLabel("De moneda extrangera a pesos"));
+        add(new JLabel("De pesos a moneda extrangera"));
 
         add(new JComboBox<String>(monedas.stream().map(Moneda::getNombre).toArray(String[]::new)));
         add(new JTextField());
