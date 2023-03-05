@@ -2,7 +2,7 @@
 class TemperaturaConvertidor extends AbstractConvertidor {
     private static final long serialVersionUID=1L;
 
-    private static final String[] units={"Kelvin","Centigrados","Fahrenheit"};
+    private static final String[] units={"","Kelvin","Centigrados","Fahrenheit"};
 
     public TemperaturaConvertidor(){
         super("Temperatura",units);

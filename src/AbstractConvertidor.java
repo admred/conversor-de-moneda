@@ -4,7 +4,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
@@ -14,8 +13,6 @@ import javax.swing.BorderFactory;
 
 abstract class  AbstractConvertidor extends JPanel implements ItemListener,KeyListener {
     private static final long serialVersionUID=1L;
-    private String title;
-    private String[] units;
     private boolean error;
     private JTextField inputField;
     private JTextField outputField;
@@ -25,8 +22,6 @@ abstract class  AbstractConvertidor extends JPanel implements ItemListener,KeyLi
 
     public AbstractConvertidor(String title,String[] units) {
         super();
-        this.title=title;
-        this.units=units;
         this.error=false;
 
         setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
