@@ -1,28 +1,23 @@
-import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
-import java.awt.Component;
-import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.JTabbedPane;
 import javax.swing.BorderFactory;
 
 public class RootPane extends JPanel implements ActionListener {
     private static final long serialVersionUID=1L;
-    ConvertirMoneda monedaPanel;
 
     public RootPane(){
         super();
+        JTabbedPane tabbedPane=new JTabbedPane();
+        tabbedPane.add("Moneda",new MonedaConvertidor());
+        tabbedPane.add("Temperatura",new TemperaturaConvertidor());
 
-        monedaPanel=new ConvertirMoneda();
-        add(monedaPanel);
-        setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-
+        add(tabbedPane);
     }
 
     public void actionPerformed(ActionEvent event){
