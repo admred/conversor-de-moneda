@@ -1,50 +1,96 @@
-import java.util.stream.Collectors;
-
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.BoxLayout;
-import javax.swing.Box;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.util.Map;
 import java.util.HashMap;
-import javax.swing.JButton;
+import java.awt.event.KeyEvent;
+import java.awt.event.ItemEvent;
+import javax.swing.JComboBox;
 
-class ConvertirMoneda extends JPanel {
 
+class  ConvertirMoneda extends AbstractConvertidor {
+    private static final long serialVersionUID=1L;
 
-    private List<Moneda> monedas=new ArrayList<Moneda>(){{
-        add(new Moneda("Peso Argentino",193.988875));
-        add(new Moneda("Euro",0.939472));
-        add(new Moneda("Libra Esternila",0.826442));
-        add(new Moneda("Yen Japonés",134.614163));
-        add(new Moneda("Won sul-coreano",1303.277058));
-    }};
-    private String[] monedasN={
-        "Peso Argentino",
-        "Euro",
-        "Libra Esternila",
-        "Yen Japonés",
-        "Won sul-coreano"
-    };
+    private String saveInput="";
+    private String inputUnit;
+    private String outputUnit;
+    private final static Pattern pat=Pattern.compile("\\d+(\\.\\d+)?");
+    private final static Map<String,Double> monedas=new HashMap<String,Double>(){{
+            put("",-1.0);
+            put("Peso",0.0051);
+            put("Dolar",1.0);
+            put("Euro",1.0687);
+            put("Libra Esterlina",1.2122);
+            put("Won sur-coreano",0.00076);
+            put("Yen japones",0.0073);
+        }};
 
     public ConvertirMoneda() {
-        super();
-        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
-        add(new JLabel("De moneda extrangera a pesos"));
-        add(new JLabel("De pesos a moneda extrangera"));
-
-        add(new JComboBox<String>(monedas.stream().map(Moneda::getNombre).toArray(String[]::new)));
-        add(new JTextField());
+        super("Moneda",monedas.keySet().toArray(String[]::new));
+        inputUnit="";
+        outputUnit="";
     }
 
-    public double getResultado() {
 
-        return 0.0;
+    @SuppressWarnings("unchecked")
+    @Override
+    public void itemStateChanged(ItemEvent e){
+        if(e.getStateChange() != ItemEvent.SELECTED) {
+            return;
+        }
+
+        String key=(String)e.getItem();
+
+        if(key.equals("") || "".equals(getInput()) ) {
+            setOutput("");
+        }
+
+        JComboBox<String> cb=(JComboBox<String>)e.getSource();
+        String name=cb.getName();
+        if(name.equals("inputCombo")  ) {
+            inputUnit=key;
+        }
+        if(name.equals("outputCombo") ) {
+            outputUnit=key;
+        }
+        System.out.println(name+" : "+monedas.get(key)+" "+key);
+        updateResult();
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e){
+        /* not used */
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e){
+        /* not used */
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e){
+
+        if("".equals(getInput())){
+            clearErrorStatus();
+            return;
+        }
+        if(validateInput()){
+            clearErrorStatus();
+            updateResult();
+        } else {
+            setErrorStatus();
+        }
+    }
+    public boolean validateInput(){
+        return pat.matcher(getInput()).matches();
+    }
+
+    public void updateResult(){
+        double inputQuote=monedas.get(inputUnit);
+        double outputQuote=monedas.get(outputUnit);
+        if(inputUnit.equals("") || outputUnit.equals("") || isErrorSet()){
+            return;
+        }
+        setOutput(String.format("%f",Double.valueOf(getInput())*inputQuote/outputQuote));
     }
 }
-
-

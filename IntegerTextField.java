@@ -1,0 +1,5 @@
+
+class IntegerTextField  extends JTextField {
+
+
+}
