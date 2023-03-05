@@ -15,7 +15,6 @@ import javax.swing.BorderFactory;
 public class RootPane extends JPanel implements ActionListener {
     private static final long serialVersionUID=1L;
     ConvertirMoneda monedaPanel;
-    private List<Moneda> monedas;
 
     public RootPane(){
         super();

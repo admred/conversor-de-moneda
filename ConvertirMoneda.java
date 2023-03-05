@@ -1,5 +1,3 @@
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 import java.util.Map;
 import java.util.HashMap;
 import java.awt.event.KeyEvent;
@@ -13,8 +11,7 @@ class  ConvertirMoneda extends AbstractConvertidor {
     private String saveInput="";
     private String inputUnit;
     private String outputUnit;
-    private final static Pattern pat=Pattern.compile("\\d+(\\.\\d+)?");
-    private final static Map<String,Double> monedas=new HashMap<String,Double>(){{
+    private static final Map<String,Double> monedas=new HashMap<String,Double>(){{
             put("",-1.0);
             put("Peso",0.0051);
             put("Dolar",1.0);
@@ -34,18 +31,20 @@ class  ConvertirMoneda extends AbstractConvertidor {
     @SuppressWarnings("unchecked")
     @Override
     public void itemStateChanged(ItemEvent e){
+        // just filter SELECTED type
         if(e.getStateChange() != ItemEvent.SELECTED) {
             return;
         }
 
         String key=(String)e.getItem();
-
+        // check if ComboBox to unset
         if(key.equals("") || "".equals(getInput()) ) {
             setOutput("");
         }
 
         JComboBox<String> cb=(JComboBox<String>)e.getSource();
         String name=cb.getName();
+        // guess the source
         if(name.equals("inputCombo")  ) {
             inputUnit=key;
         }
@@ -70,7 +69,7 @@ class  ConvertirMoneda extends AbstractConvertidor {
     @Override
     public void keyReleased(KeyEvent e){
 
-        if("".equals(getInput())){
+        if(getInput().isBlank()){
             clearErrorStatus();
             return;
         }
@@ -82,15 +81,19 @@ class  ConvertirMoneda extends AbstractConvertidor {
         }
     }
     public boolean validateInput(){
-        return pat.matcher(getInput()).matches();
+        return getInput().matches("\\d+(\\.\\d+)?");
     }
 
     public void updateResult(){
         double inputQuote=monedas.get(inputUnit);
         double outputQuote=monedas.get(outputUnit);
+        String input=getInput();
         if(inputUnit.equals("") || outputUnit.equals("") || isErrorSet()){
             return;
         }
-        setOutput(String.format("%f",Double.valueOf(getInput())*inputQuote/outputQuote));
+        if(getInput().isBlank()){
+            return;
+        }
+        setOutput(String.format("%f",Double.valueOf(input)*inputQuote/outputQuote));
     }
 }
