@@ -1,6 +1,9 @@
 # Challenge ONE Back End - Java
 
-### Conversor de monedas y temperaturas
+### Simple conversor de monedas y otras unidades
+
+![Preview](assets/preview.gif?raw=true)
+
 
 - [Estado del proyecto](https://trello.com/b/QKeOWkDU/conversor-de-monedas)
 - [Codigo fuente](https://github.com/admred/conversor-de-moneda)
